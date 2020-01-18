@@ -12,7 +12,7 @@ import com.spideron.shopping.constant.EnvironmentConstants;
 public class DatabaseOps {
 	public static Connection dbConnection=null;
 	
-	public  Connection getConnection() {
+	public Connection getConnection() {
 		final String connectionPrefix="jdbc:mysql://";
 		try {
 			Properties properties = readProperties(EnvironmentConstants.DB_CONFIG_FILE);
@@ -38,6 +38,11 @@ public class DatabaseOps {
 			e.printStackTrace();
 		}
 		return dbConnection;
+	}
+	public void closeDBConnection(Connection connection) throws SQLException {
+		if(connection!=null) {
+			connection.close();
+		}
 	}
 	private  Properties readProperties(String fileName) throws IOException {
 		
