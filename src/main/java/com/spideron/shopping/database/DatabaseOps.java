@@ -42,6 +42,7 @@ public class DatabaseOps {
 	public void closeDBConnection(Connection connection) throws SQLException {
 		if(connection!=null) {
 			connection.close();
+			System.out.println("Connection closed");
 		}
 	}
 	private  Properties readProperties(String fileName) throws IOException {
