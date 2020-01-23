@@ -14,6 +14,6 @@ http://ec2-35-175-247-170.compute-1.amazonaws.com:8080/ShoppingAPI/webapi/custom
 4.	Access a customer’s carts
 http://ec2-35-175-247-170.compute-1.amazonaws.com:8080/ShoppingAPI/webapi/customers/C005/carts
 5.	Access a products’s details by productId
-http://localhost:8080/ShoppingAPI/webapi/products/P0001
+http://ec2-35-175-247-170.compute-1.amazonaws.com:8080/ShoppingAPI/webapi/products/P0001
 8.	Access a products’s details by partial name match
-http://localhost:8080/ShoppingAPI/webapi/products?prdPartialName=Core
+http://ec2-35-175-247-170.compute-1.amazonaws.com:8080/ShoppingAPI/webapi/products?prdPartialName=Core
