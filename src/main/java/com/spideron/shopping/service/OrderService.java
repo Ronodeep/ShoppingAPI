@@ -20,11 +20,11 @@ public class OrderService {
 		boolean filter=false;
 		String orderSelectQuery=null;
 		if(startDate!=null && endDate!=null) {
-			orderSelectQuery = "select * from Orders where customername=(select name from customers where customerid=?) and orderdate Between ? and ?";
+			orderSelectQuery = "select * from orders where customername=(select name from customers where customerid=?) and orderdate Between ? and ?";
 			filter=true;
 		}
 		else {
-			orderSelectQuery = "select * from Orders where customername=(select name from customers where customerid=?)";
+			orderSelectQuery = "select * from orders where customername=(select name from customers where customerid=?)";
 			filter=false;
 		}
 		
@@ -60,7 +60,7 @@ public class OrderService {
 
 	public Order getOrderForCustomer(String custID, String orderId) throws SQLException {
 		// TODO: exception handling
-		final String orderSelectQuery = "select * from Orders where ordernumber=? and customername=(select name from customers where customerid=?)";
+		final String orderSelectQuery = "select * from orders where ordernumber=? and customername=(select name from customers where customerid=?)";
 		Connection connection = dbOPS.getConnection();
 
 		Order order=null;
