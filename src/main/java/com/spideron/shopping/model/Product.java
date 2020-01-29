@@ -1,15 +1,21 @@
 package com.spideron.shopping.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.spideron.shopping.hateoas.Link;
+
 @XmlRootElement
-public class Product {
+public class Product{
 	private String productid;
 	private String category;
 	private String productname;
 	private float price;
 	private float ratings;
-	
+	// Adding HATEOAS component
+	private List<Link> urlLinkList=new ArrayList<Link>();
 	
 	public Product() {
 		super();
@@ -52,6 +58,15 @@ public class Product {
 	public void setRatings(float ratings) {
 		this.ratings = ratings;
 	}
+	public List<Link> getUrlLinks() {
+		return urlLinkList;
+	}
+	public void setUrlLinks(List<Link> urlLinks) {
+		this.urlLinkList = urlLinks;
+	}
 	
-	
+	public void addLink(String url,String rel) {
+		Link link=new Link(url, rel);
+		urlLinkList.add(link);
+	}
 }

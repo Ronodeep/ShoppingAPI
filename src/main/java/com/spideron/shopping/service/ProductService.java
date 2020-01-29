@@ -41,7 +41,16 @@ public class ProductService {
 	
 	public List<Product> getMatchedProducts(String productPartialName) throws SQLException {
 		// TODO: exception handling
-		final String productSelectQuery = "select * from products where productname like ?";
+		String productSelectQuery = null;
+		boolean searchFlag=false;
+		if(productPartialName!=null && productPartialName.length()>0) {
+			productSelectQuery = "select * from products where productname like ?";
+			searchFlag=true;
+		}
+		else {
+			productSelectQuery = "select * from products";
+			searchFlag=false;
+		}
 		Connection connection = dbOPS.getConnection();
 		Product product = null;
 		List<Product> productList=null;
@@ -49,8 +58,10 @@ public class ProductService {
 			if (connection != null) {
 
 				PreparedStatement ptSelectQuery = connection.prepareStatement(productSelectQuery);
-				ptSelectQuery.setString(1, "%"+productPartialName+"%");
-				System.out.println("ptSelectQuery:"+ptSelectQuery);
+				if(searchFlag) {
+					ptSelectQuery.setString(1, "%"+productPartialName+"%");
+				}
+				System.out.println(ptSelectQuery);
 				ResultSet productSet = ptSelectQuery.executeQuery();
 				productList=new ArrayList<Product>();
 				
@@ -66,5 +77,35 @@ public class ProductService {
 			dbOPS.closeDBConnection(connection);
 		}
 		return productList;
+	}
+
+	public Product addNewProduct(Product product) throws SQLException {
+		//TODO: Exception Handling
+
+		final String productInsertQuery = "Insert into products() values(?,?,?,?,?)";
+		Connection connection = dbOPS.getConnection();
+		
+		try {
+			if (connection != null) {
+				
+				PreparedStatement ptSelectQuery = connection.prepareStatement(productInsertQuery);
+				
+				// Replacing the variables with DATA
+				ptSelectQuery.setString(1, product.getProductid());
+				ptSelectQuery.setString(2, product.getCategory());
+				ptSelectQuery.setString(3, product.getProductname());
+				ptSelectQuery.setFloat(4, product.getPrice());
+				ptSelectQuery.setFloat(5, product.getRatings());
+				
+				int rowCreated = ptSelectQuery.executeUpdate();
+				
+				System.out.println("Insertion Done:"+rowCreated);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbOPS.closeDBConnection(connection);
+		}
+		return product;
 	}
 }
